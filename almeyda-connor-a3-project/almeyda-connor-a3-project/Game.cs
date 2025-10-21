@@ -11,14 +11,21 @@ namespace MohawkGame2D
     public class Game
     {
         // Place your variables here:
-
-
+        Vector2 positionBall;
+        Vector2 velocityBall;
+        float radiusBall = 35;
+        Color colorBall = Color.Red;
         /// <summary>
         ///     Setup runs once before the game loop begins.
         /// </summary>
         public void Setup()
         {
-
+            Window.SetSize(400, 800);
+            Window.SetTitle("CoolMotionVector");
+            // Set up variables once game is ready
+            positionBall = new(Window.Width / 2, Window.Height / 8);
+            // 
+            Draw.LineSize = 1;
         }
 
         /// <summary>
@@ -26,7 +33,32 @@ namespace MohawkGame2D
         /// </summary>
         public void Update()
         {
+            // Run game logic
+            BallGravity();
+            BallToScreen();
+            Window.ClearBackground(Color.OffWhite);
+            // Draw Ball
+            Draw.FillColor = colorBall;
+            Draw.Circle(positionBall, radiusBall);
+        }
+        void BallGravity()
+        {
+            // Apply gravity to velocity
+            velocityBall += new Vector2(0,10)*Time.DeltaTime;
+            // Apply velocity to velocity
+            positionBall += velocityBall;
+        }
 
+        void BallToScreen()
+        {
+            if (positionBall.Y+radiusBall >= Window.Height)
+            {
+                velocityBall.Y = -velocityBall.Y;
+                velocityBall *= 0.8f;
+                // Place ball against bottom edge of screen
+                positionBall.Y = Window.Height - radiusBall;
+            }
+           
         }
     }
 
