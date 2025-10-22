@@ -13,6 +13,8 @@ namespace MohawkGame2D
         // Place your variables here:
         Vector2 positionBall;
         Vector2 velocityBall;
+        Vector2[] platformPositions = { new Vector2 (300,700), new Vector2(100, 500) };
+        Vector2[] platformSize = { new Vector2(30, 10), new Vector2(200, 30) };
         float radiusBall = 35;
         Color colorBall = Color.Red;
         /// <summary>
@@ -33,14 +35,20 @@ namespace MohawkGame2D
         /// </summary>
         public void Update()
         {
+            Window.ClearBackground(Color.OffWhite);
             // Run game logic
             BallHorizontalMovement();
             BallGravity();
             BallToScreen();
-            Window.ClearBackground(Color.OffWhite);
+            
             // Draw Ball
             Draw.FillColor = colorBall;
             Draw.Circle(positionBall,radiusBall);
+            // CreatePlateforms
+            for (int i = 0; i < platformPositions.Length; i++)
+            {
+                CreatePlatform(i);
+            }
         }
         void BallGravity()
         {
@@ -81,9 +89,9 @@ namespace MohawkGame2D
            
         }
 
-        void CreatePlatform()
+        void CreatePlatform(int i)
         {
-
+            Draw.Rectangle(platformPositions[i], platformSize[i]);
         }
     }
 
