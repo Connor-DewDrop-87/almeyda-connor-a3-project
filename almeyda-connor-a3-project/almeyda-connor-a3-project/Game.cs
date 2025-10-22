@@ -11,21 +11,20 @@ namespace MohawkGame2D
     public class Game
     {
         // Place your variables here:
-        Vector2 positionBall;
-        Vector2 velocityBall;
-        Vector2[] platformPositions = { new Vector2 (300,700), new Vector2(100, 500) };
-        Vector2[] platformSize = { new Vector2(30, 10), new Vector2(200, 30) };
-        float radiusBall = 35;
-        Color colorBall = Color.Red;
+        Vector2 positionCharacter;
+        float sizeCharacter = 20;
+        Vector2[] platformPositions = { new Vector2 (300,750), new Vector2(100, 500) };
+        Vector2[] platformSize = { new Vector2(300, 10), new Vector2(200, 30) };
+        Color colorBall = Color.Green;
         /// <summary>
         ///     Setup runs once before the game loop begins.
         /// </summary>
         public void Setup()
         {
-            Window.SetSize(400, 800);
+            Window.SetSize(600, 800);
             Window.SetTitle("CoolMotionVector");
             // Set up variables once game is ready
-            positionBall = new(Window.Width/2, Window.Height);
+            positionCharacter = new(Window.Width/2, Window.Height/8);
             // 
             Draw.LineSize = 1;
         }
@@ -38,60 +37,31 @@ namespace MohawkGame2D
             Window.ClearBackground(Color.OffWhite);
             // Run game logic
             BallHorizontalMovement();
-            BallGravity();
-            BallToScreen();
             
             // Draw Ball
             Draw.FillColor = colorBall;
-            Draw.Circle(positionBall,radiusBall);
-            // CreatePlateforms
-            for (int i = 0; i < platformPositions.Length; i++)
-            {
-                CreatePlatform(i);
-            }
+            Draw.Square(positionCharacter, sizeCharacter);
         }
-        void BallGravity()
-        {
-            // Check if can jump
-            if (Input.IsKeyboardKeyDown(KeyboardInput.W) && positionBall.Y == Window.Height - radiusBall)
-            {
-                positionBall -= new Vector2(0, 50);
-            }
-            else
-            {
-                // Apply gravity to velocity
-                velocityBall += new Vector2(0, 10) * (Time.DeltaTime/50);
-                // Apply velocity to velocity
-                positionBall += velocityBall;
-            }
-            
-        }
+        
 
         void BallHorizontalMovement()
         {
-            if (Input.IsKeyboardKeyDown(KeyboardInput.D) && positionBall.X + radiusBall <= Window.Width)
+            if (Input.IsKeyboardKeyDown(KeyboardInput.D) && positionCharacter.X <= Window.Width-2*sizeCharacter)
             {
-                positionBall += new Vector2(10, 0);
+                positionCharacter += new Vector2(20, 0);
             }
-            if (Input.IsKeyboardKeyDown(KeyboardInput.A) && positionBall.X - radiusBall >= 0)
+            if (Input.IsKeyboardKeyDown(KeyboardInput.A) && positionCharacter.X >= sizeCharacter)
             {
-                positionBall -= new Vector2(10, 0);
+                positionCharacter -= new Vector2(20, 0);
             }
-            
-        }
-
-        void BallToScreen()
-        {
-            if (positionBall.Y+radiusBall >= Window.Height)
+            if (Input.IsKeyboardKeyDown(KeyboardInput.W) && positionCharacter.Y >= sizeCharacter)
             {
-                positionBall.Y = Window.Height - radiusBall;
+                positionCharacter -= new Vector2(0, 20);
             }
-           
-        }
-
-        void CreatePlatform(int i)
-        {
-            Draw.Rectangle(platformPositions[i], platformSize[i]);
+            if (Input.IsKeyboardKeyDown(KeyboardInput.S) && positionCharacter.Y <= Window.Height-2*sizeCharacter)
+            {
+                positionCharacter += new Vector2(0, 20);
+            }
         }
     }
 
