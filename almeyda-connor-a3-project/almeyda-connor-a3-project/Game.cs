@@ -23,7 +23,7 @@ namespace MohawkGame2D
             Window.SetSize(400, 800);
             Window.SetTitle("CoolMotionVector");
             // Set up variables once game is ready
-            positionBall = new(Window.Width / 2, Window.Height / 8);
+            positionBall = new(Window.Width/2, Window.Height);
             // 
             Draw.LineSize = 1;
         }
@@ -34,34 +34,56 @@ namespace MohawkGame2D
         public void Update()
         {
             // Run game logic
+            BallHorizontalMovement();
             BallGravity();
             BallToScreen();
             Window.ClearBackground(Color.OffWhite);
             // Draw Ball
             Draw.FillColor = colorBall;
-            float angle = Time.SecondsElapsed * (MathF.Tau/4);
-            float width = MathF.Cos(angle)*radiusBall;
-            float height = MathF.Sin(angle)*radiusBall;
-            Draw.Ellipse(positionBall.X, positionBall.Y, width, height);
+            Draw.Circle(positionBall,radiusBall);
         }
         void BallGravity()
         {
-            // Apply gravity to velocity
-            velocityBall += new Vector2(0,10)*Time.DeltaTime;
-            // Apply velocity to velocity
-            positionBall += velocityBall;
+            // Check if can jump
+            if (Input.IsKeyboardKeyDown(KeyboardInput.W) && positionBall.Y == Window.Height - radiusBall)
+            {
+                positionBall -= new Vector2(0, 50);
+            }
+            else
+            {
+                // Apply gravity to velocity
+                velocityBall += new Vector2(0, 10) * (Time.DeltaTime/50);
+                // Apply velocity to velocity
+                positionBall += velocityBall;
+            }
+            
+        }
+
+        void BallHorizontalMovement()
+        {
+            if (Input.IsKeyboardKeyDown(KeyboardInput.D) && positionBall.X + radiusBall <= Window.Width)
+            {
+                positionBall += new Vector2(10, 0);
+            }
+            if (Input.IsKeyboardKeyDown(KeyboardInput.A) && positionBall.X - radiusBall >= 0)
+            {
+                positionBall -= new Vector2(10, 0);
+            }
+            
         }
 
         void BallToScreen()
         {
             if (positionBall.Y+radiusBall >= Window.Height)
             {
-                velocityBall.Y = -velocityBall.Y;
-                velocityBall *= 0.8f;
-                // Place ball against bottom edge of screen
                 positionBall.Y = Window.Height - radiusBall;
             }
            
+        }
+
+        void CreatePlatform()
+        {
+
         }
     }
 
