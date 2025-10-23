@@ -34,7 +34,9 @@ namespace MohawkGame2D
         /// </summary>
         public void Update()
         {
+            
             Window.ClearBackground(Color.OffWhite);
+            BoardSummon();
             // Run game logic
             BallHorizontalMovement();
             
@@ -61,6 +63,31 @@ namespace MohawkGame2D
             if (Input.IsKeyboardKeyDown(KeyboardInput.S) && positionCharacter.Y <= Window.Height-2*sizeCharacter)
             {
                 positionCharacter += new Vector2(0, 20);
+            }
+        }
+        void BoardSummon()
+        {
+            for (int y = 0; y < 8; y++)
+            {
+                int yremainder = y % 2;
+                for (int x = 0; x < 8; x++)
+                {
+                    int xremainder = x % 2;
+                    if (xremainder == 0 ^ yremainder == 1)
+                    {
+                        Draw.FillColor = Color.Black;
+                        Draw.Square(0 + 50 * x, 0 + 50 * y, 50);
+
+                    }
+                    if (xremainder == 1 ^ yremainder == 1)
+                    {
+                        Draw.FillColor = Color.Red;
+                        Draw.Square(0 + 50 * x, 0 + 50 * y, 50);
+
+                    }
+
+                }
+
             }
         }
     }
