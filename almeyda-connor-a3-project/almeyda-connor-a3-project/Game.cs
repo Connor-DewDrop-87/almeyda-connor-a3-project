@@ -11,9 +11,14 @@ namespace MohawkGame2D
     public class Game
     {
         // Place your variables here:
-        Vector2 positionCharacter;
-        float sizeCharacter = 50;
-        Color colorBall = Color.Green;
+        Vector2 positionPlayer;
+        float sizePlayer = 50;
+        Color colorPlayer = Color.White;
+        Vector2 positionRook;
+        float velocityRook;
+        bool touchLeftRook=true;
+        float sizeRook = 50;
+        Color colorRook = Color.Blue;
         /// <summary>
         ///     Setup runs once before the game loop begins.
         /// </summary>
@@ -22,7 +27,8 @@ namespace MohawkGame2D
             Window.SetSize(600, 800);
             Window.SetTitle("CoolMotionVector");
             // Set up variables once game is ready
-            positionCharacter = new(Window.Width/2, Window.Height-sizeCharacter);
+            positionPlayer = new(Window.Width/2, Window.Height-sizePlayer);
+            positionRook = new(0, Window.Height-100);
             // 
             Draw.LineSize = 1;
         }
@@ -36,31 +42,35 @@ namespace MohawkGame2D
             Window.ClearBackground(Color.OffWhite);
             BoardSummon();
             // Run game logic
-            BallHorizontalMovement();
+            PlayerHorizontalMovement();
+            RookMovement();
             
-            // Draw Ball
-            Draw.FillColor = colorBall;
-            Draw.Square(positionCharacter, sizeCharacter);
+            // Draw Player
+            Draw.FillColor = colorPlayer;
+            Draw.Square(positionPlayer, sizePlayer);
+            // Draw Enemy Pieces
+            Draw.FillColor = colorRook;
+            Draw.Square(positionRook, sizeRook);
         }
         
 
-        void BallHorizontalMovement()
+        void PlayerHorizontalMovement()
         {
-            if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionCharacter.X <= Window.Width-2*sizeCharacter)
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Width-2*sizePlayer)
             {
-                positionCharacter += new Vector2(50, 0);
+                positionPlayer += new Vector2(50, 0);
             }
-            if (Input.IsKeyboardKeyPressed(KeyboardInput.A) && positionCharacter.X >= sizeCharacter)
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.A) && positionPlayer.X >= sizePlayer)
             {
-                positionCharacter -= new Vector2(50, 0);
+                positionPlayer -= new Vector2(50, 0);
             }
-            if (Input.IsKeyboardKeyPressed(KeyboardInput.W) && positionCharacter.Y >= sizeCharacter)
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.W) && positionPlayer.Y >= sizePlayer)
             {
-                positionCharacter -= new Vector2(0, 50);
+                positionPlayer -= new Vector2(0, 50);
             }
-            if (Input.IsKeyboardKeyPressed(KeyboardInput.S) && positionCharacter.Y <= Window.Height-2*sizeCharacter)
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.S) && positionPlayer.Y <= Window.Height-2*sizePlayer)
             {
-                positionCharacter += new Vector2(0, 50);
+                positionPlayer += new Vector2(0, 50);
             }
         }
         void BoardSummon()
@@ -86,6 +96,29 @@ namespace MohawkGame2D
 
                 }
 
+            }
+        }
+        void RookMovement()
+        {
+            if (positionRook.X >= Window.Width-50)
+            {
+                velocityRook = 0;
+                touchLeftRook = false;
+            }
+            if (positionRook.X <= 0)
+            {
+                velocityRook = 0;
+                touchLeftRook = true;
+            }
+            if (!touchLeftRook)
+            {
+                velocityRook += 10;
+                positionRook -= new Vector2(velocityRook * Time.DeltaTime, 0);
+            }
+            if (touchLeftRook)
+            {
+                velocityRook += 10;
+                positionRook += new Vector2(velocityRook * Time.DeltaTime, 0);
             }
         }
     }
