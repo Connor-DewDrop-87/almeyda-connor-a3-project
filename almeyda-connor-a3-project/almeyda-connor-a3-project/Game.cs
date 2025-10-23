@@ -12,9 +12,7 @@ namespace MohawkGame2D
     {
         // Place your variables here:
         Vector2 positionCharacter;
-        float sizeCharacter = 20;
-        Vector2[] platformPositions = { new Vector2 (300,750), new Vector2(100, 500) };
-        Vector2[] platformSize = { new Vector2(300, 10), new Vector2(200, 30) };
+        float sizeCharacter = 50;
         Color colorBall = Color.Green;
         /// <summary>
         ///     Setup runs once before the game loop begins.
@@ -24,7 +22,7 @@ namespace MohawkGame2D
             Window.SetSize(600, 800);
             Window.SetTitle("CoolMotionVector");
             // Set up variables once game is ready
-            positionCharacter = new(Window.Width/2, Window.Height/8);
+            positionCharacter = new(Window.Width/2, Window.Height-sizeCharacter);
             // 
             Draw.LineSize = 1;
         }
@@ -48,29 +46,29 @@ namespace MohawkGame2D
 
         void BallHorizontalMovement()
         {
-            if (Input.IsKeyboardKeyDown(KeyboardInput.D) && positionCharacter.X <= Window.Width-2*sizeCharacter)
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionCharacter.X <= Window.Width-2*sizeCharacter)
             {
-                positionCharacter += new Vector2(20, 0);
+                positionCharacter += new Vector2(50, 0);
             }
-            if (Input.IsKeyboardKeyDown(KeyboardInput.A) && positionCharacter.X >= sizeCharacter)
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.A) && positionCharacter.X >= sizeCharacter)
             {
-                positionCharacter -= new Vector2(20, 0);
+                positionCharacter -= new Vector2(50, 0);
             }
-            if (Input.IsKeyboardKeyDown(KeyboardInput.W) && positionCharacter.Y >= sizeCharacter)
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.W) && positionCharacter.Y >= sizeCharacter)
             {
-                positionCharacter -= new Vector2(0, 20);
+                positionCharacter -= new Vector2(0, 50);
             }
-            if (Input.IsKeyboardKeyDown(KeyboardInput.S) && positionCharacter.Y <= Window.Height-2*sizeCharacter)
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.S) && positionCharacter.Y <= Window.Height-2*sizeCharacter)
             {
-                positionCharacter += new Vector2(0, 20);
+                positionCharacter += new Vector2(0, 50);
             }
         }
         void BoardSummon()
         {
-            for (int y = 0; y < 8; y++)
+            for (int y = 0; y < 16; y++)
             {
                 int yremainder = y % 2;
-                for (int x = 0; x < 8; x++)
+                for (int x = 0; x < 12; x++)
                 {
                     int xremainder = x % 2;
                     if (xremainder == 0 ^ yremainder == 1)
