@@ -145,6 +145,10 @@ namespace MohawkGame2D
             {
                 gameIsWon = true;
             }
+            if (positionPlayer.X >= 550)
+            {
+                isAlive = false;
+            }
         }
     }
 
