@@ -10,13 +10,16 @@ namespace MohawkGame2D
     /// </summary>
     public class Game
     {
-        // Place your variables here:
+        // Player Specific Variables:
         Vector2 positionPlayer;
         float sizePlayer = 50;
-        Color colorPlayer = Color.White;
+        Color[] colorPlayer = { Color.White, Color.Yellow};
+        bool isAlive = true;
+        bool gameIsWon = false;
+        // Rook Specific Variables
         Vector2 positionRook;
         float velocityRook;
-        bool touchLeftRook=true;
+        bool rookTouchLeftSide=true;
         float sizeRook = 50;
         Color colorRook = Color.Blue;
         /// <summary>
@@ -28,7 +31,7 @@ namespace MohawkGame2D
             Window.SetTitle("CoolMotionVector");
             // Set up variables once game is ready
             positionPlayer = new(Window.Width/2, Window.Height-sizePlayer);
-            positionRook = new(0, Window.Height-100);
+            positionRook = new(10, Window.Height-100);
             // 
             Draw.LineSize = 1;
         }
@@ -38,19 +41,34 @@ namespace MohawkGame2D
         /// </summary>
         public void Update()
         {
-            
             Window.ClearBackground(Color.OffWhite);
-            BoardSummon();
-            // Run game logic
-            PlayerHorizontalMovement();
-            RookMovement();
-            
-            // Draw Player
-            Draw.FillColor = colorPlayer;
-            Draw.Square(positionPlayer, sizePlayer);
-            // Draw Enemy Pieces
-            Draw.FillColor = colorRook;
-            Draw.Square(positionRook, sizeRook);
+            if (isAlive==true && gameIsWon==false)
+            {
+                BoardSummon();
+                // Run game logic
+                PlayerHorizontalMovement();
+                RookMovement();
+                CheckIfWon();
+
+                // Draw Player
+                Draw.FillColor = colorPlayer[0];
+                Draw.Square(positionPlayer, sizePlayer);
+                // Draw Enemy Pieces
+                Draw.FillColor = colorRook
+                ;
+                Draw.Square(positionRook, sizeRook);
+            }
+            if (gameIsWon==true)
+            {
+                BoardSummon();
+                Draw.FillColor = colorPlayer[1]
+                ;
+                Draw.Square(positionPlayer, sizePlayer);
+            }
+            if (isAlive ==false && gameIsWon==false)
+            {
+
+            }
         }
         
 
@@ -58,11 +76,11 @@ namespace MohawkGame2D
         {
             if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Width-2*sizePlayer)
             {
-                positionPlayer += new Vector2(50, 0);
+                positionPlayer += new Vector2(50, -50);
             }
             if (Input.IsKeyboardKeyPressed(KeyboardInput.A) && positionPlayer.X >= sizePlayer)
             {
-                positionPlayer -= new Vector2(50, 0);
+                positionPlayer -= new Vector2(50, 50);
             }
             if (Input.IsKeyboardKeyPressed(KeyboardInput.W) && positionPlayer.Y >= sizePlayer)
             {
@@ -103,22 +121,29 @@ namespace MohawkGame2D
             if (positionRook.X >= Window.Width-50)
             {
                 velocityRook = 0;
-                touchLeftRook = false;
+                rookTouchLeftSide = false;
             }
             if (positionRook.X <= 0)
             {
                 velocityRook = 0;
-                touchLeftRook = true;
+                rookTouchLeftSide = true;
             }
-            if (!touchLeftRook)
+            if (!rookTouchLeftSide)
             {
                 velocityRook += 10;
                 positionRook -= new Vector2(velocityRook * Time.DeltaTime, 0);
             }
-            if (touchLeftRook)
+            if (rookTouchLeftSide)
             {
                 velocityRook += 10;
                 positionRook += new Vector2(velocityRook * Time.DeltaTime, 0);
+            }
+        }
+        void CheckIfWon()
+        {
+            if (positionPlayer.Y <= 0)
+            {
+                gameIsWon = true;
             }
         }
     }
