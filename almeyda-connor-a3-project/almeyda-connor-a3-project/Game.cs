@@ -1,6 +1,8 @@
 ﻿// Include the namespaces (code libraries) you need below.
 using System;
+using System.Drawing;
 using System.Numerics;
+using static System.Net.Mime.MediaTypeNames;
 
 // The namespace your code is in.
 namespace MohawkGame2D
@@ -42,13 +44,15 @@ namespace MohawkGame2D
         public void Update()
         {
             Window.ClearBackground(Color.OffWhite);
+            CheckIfWon();
+            // Game States
+            // Playable State
             if (isAlive==true && gameIsWon==false)
             {
                 BoardSummon();
                 // Run game logic
                 PlayerHorizontalMovement();
                 RookMovement();
-                CheckIfWon();
 
                 // Draw Player
                 Draw.FillColor = colorPlayer[0];
@@ -58,6 +62,7 @@ namespace MohawkGame2D
                 ;
                 Draw.Square(positionRook, sizeRook);
             }
+            // Win State
             if (gameIsWon==true)
             {
                 BoardSummon();
@@ -65,9 +70,13 @@ namespace MohawkGame2D
                 ;
                 Draw.Square(positionPlayer, sizePlayer);
             }
+            // Lose State
             if (isAlive ==false && gameIsWon==false)
             {
-
+                BoardSummon();
+                Text.Color = Color.Blue;
+                Text.Size = 120;
+                Text.Draw("YOU LOSE", 50, 300);
             }
         }
         
@@ -86,10 +95,7 @@ namespace MohawkGame2D
             {
                 positionPlayer -= new Vector2(0, 50);
             }
-            if (Input.IsKeyboardKeyPressed(KeyboardInput.S) && positionPlayer.Y <= Window.Height-2*sizePlayer)
-            {
-                positionPlayer += new Vector2(0, 50);
-            }
+            
         }
         void BoardSummon()
         {
