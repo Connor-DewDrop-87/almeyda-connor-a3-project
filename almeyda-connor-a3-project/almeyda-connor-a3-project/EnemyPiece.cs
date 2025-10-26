@@ -10,6 +10,11 @@ namespace MohawkGame2D;
     public float velocityRook;
     public bool rookTouchLeftSide = true;
     public float sizeRook = 50;
+
+    public EnemyPiece(Vector2 positionRook)
+    {
+        this.positionRook = positionRook;
+    }
     public void DrawMovement()
         {
         Draw.FillColor = Color.Blue;

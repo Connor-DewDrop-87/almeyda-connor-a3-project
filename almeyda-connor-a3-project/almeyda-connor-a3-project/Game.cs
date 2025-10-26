@@ -12,7 +12,11 @@ namespace MohawkGame2D
     /// </summary>
     public class Game
     {
-        EnemyPiece Rook = new EnemyPiece();
+        // Enemy Pieces
+        EnemyPiece[] Rooks = [
+            new EnemyPiece(new Vector2(300,700)),
+            new EnemyPiece(new Vector2(10,250)),
+            ];
         // Player Specific Variables:
         Vector2 positionPlayer;
         float sizePlayer = 50;
@@ -56,8 +60,11 @@ namespace MohawkGame2D
                 // Draw Player
                 Draw.FillColor = colorPlayer[0];
                 Draw.Square(positionPlayer, sizePlayer);
-                // Draw Rook
-                Rook.DrawMovement();
+                // Draw Rooks
+                for (int i = 0; i < Rooks.Length; i++)
+                {
+                    Rooks[i].DrawMovement();
+                }
                 
 
             }
