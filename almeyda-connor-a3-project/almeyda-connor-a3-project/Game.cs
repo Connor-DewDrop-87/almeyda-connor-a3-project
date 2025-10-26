@@ -12,6 +12,7 @@ namespace MohawkGame2D
     /// </summary>
     public class Game
     {
+        EnemyPiece Rook = new EnemyPiece();
         // Player Specific Variables:
         Vector2 positionPlayer;
         float sizePlayer = 50;
@@ -19,11 +20,8 @@ namespace MohawkGame2D
         bool isAlive = true;
         bool gameIsWon = false;
         // Rook Specific Variables
-        Vector2 positionRook;
-        float velocityRook;
-        bool rookTouchLeftSide=true;
-        float sizeRook = 50;
-        Color colorRook = Color.Blue;
+        
+
         /// <summary>
         ///     Setup runs once before the game loop begins.
         /// </summary>
@@ -33,7 +31,8 @@ namespace MohawkGame2D
             Window.SetTitle("CoolMotionVector");
             // Set up variables once game is ready
             positionPlayer = new(Window.Width/2, Window.Height-sizePlayer);
-            positionRook = new(10, Window.Height-100);
+            
+            
             // 
             Draw.LineSize = 1;
         }
@@ -45,22 +44,22 @@ namespace MohawkGame2D
         {
             Window.ClearBackground(Color.OffWhite);
             CheckIfWon();
-            // Game States
+            //// Game States
             // Playable State
             if (isAlive==true && gameIsWon==false)
             {
                 BoardSummon();
                 // Run game logic
                 PlayerHorizontalMovement();
-                RookMovement();
+                
 
                 // Draw Player
                 Draw.FillColor = colorPlayer[0];
                 Draw.Square(positionPlayer, sizePlayer);
-                // Draw Enemy Pieces
-                Draw.FillColor = colorRook
-                ;
-                Draw.Square(positionRook, sizeRook);
+                // Draw Rook
+                Rook.DrawMovement();
+                
+
             }
             // Win State
             if (gameIsWon==true)
@@ -69,6 +68,9 @@ namespace MohawkGame2D
                 Draw.FillColor = colorPlayer[1]
                 ;
                 Draw.Square(positionPlayer, sizePlayer);
+                Text.Color = Color.Blue;
+                Text.Size = 120;
+                Text.Draw("YOU WIN", 75, 300);
             }
             // Lose State
             if (isAlive ==false && gameIsWon==false)
@@ -76,7 +78,7 @@ namespace MohawkGame2D
                 BoardSummon();
                 Text.Color = Color.Blue;
                 Text.Size = 120;
-                Text.Draw("YOU LOSE", 50, 300);
+                Text.Draw("YOU LOSE", 75, 300);
             }
         }
         
@@ -122,29 +124,7 @@ namespace MohawkGame2D
 
             }
         }
-        void RookMovement()
-        {
-            if (positionRook.X >= Window.Width-50)
-            {
-                velocityRook = 0;
-                rookTouchLeftSide = false;
-            }
-            if (positionRook.X <= 0)
-            {
-                velocityRook = 0;
-                rookTouchLeftSide = true;
-            }
-            if (!rookTouchLeftSide)
-            {
-                velocityRook += 10;
-                positionRook -= new Vector2(velocityRook * Time.DeltaTime, 0);
-            }
-            if (rookTouchLeftSide)
-            {
-                velocityRook += 10;
-                positionRook += new Vector2(velocityRook * Time.DeltaTime, 0);
-            }
-        }
+        
         void CheckIfWon()
         {
             if (positionPlayer.Y <= 0)
