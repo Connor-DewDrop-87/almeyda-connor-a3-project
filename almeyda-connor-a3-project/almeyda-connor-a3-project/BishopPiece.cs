@@ -29,31 +29,35 @@ public class BishopPiece
         if (positionBishop.X >= Window.Width - sizeBishop)
         {
             velocityBishop = 0;
-           
+            positionBishop.X = Window.Width - sizeBishop;
             bishopTouchLeftSide = false;
         }
         if (positionBishop.X <= 0)
         {
             velocityBishop = 0;
-            
+            positionBishop.X = 0;
             bishopTouchLeftSide = true;
         }
-        if (positionBishop.Y >= maxYBishop)
+        if (positionBishop.Y > maxYBishop)
         {
+            velocityBishop = 0;
+            positionBishop.Y = maxYBishop;
             upOrDown *= -1;
             bishopTouchBottom = false;
         }
-        if (positionBishop.Y <= minYBishop)
+        if (positionBishop.Y < minYBishop)
         {
+            velocityBishop = 0;
+            positionBishop.Y = minYBishop;
             upOrDown *= -1;
             bishopTouchBottom = true;
         }
-        if (bishopTouchBottom)
+        if (bishopTouchLeftSide)
         {
             velocityBishop += 10;
             positionBishop += new Vector2(velocityBishop * Time.DeltaTime, velocityBishop * Time.DeltaTime * upOrDown);
         }
-        if (!bishopTouchBottom)
+        if (!bishopTouchLeftSide)
         {
             velocityBishop += 10;
             positionBishop -= new Vector2(velocityBishop * Time.DeltaTime, velocityBishop * Time.DeltaTime * upOrDown);

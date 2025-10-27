@@ -22,11 +22,13 @@ namespace MohawkGame2D;
         if (positionRook.X >= Window.Width - sizeRook)
         {
             velocityRook = 0;
+            positionRook.X = Window.Width - sizeRook;
             rookTouchLeftSide = false;
         }
         if (positionRook.X <= 0)
         {
             velocityRook = 0;
+            positionRook.X = 0;
             rookTouchLeftSide = true;
         }
         if (!rookTouchLeftSide)

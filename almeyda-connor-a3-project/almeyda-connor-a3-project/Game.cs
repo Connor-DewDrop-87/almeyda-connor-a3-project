@@ -17,7 +17,10 @@ namespace MohawkGame2D
             new RookPiece(new Vector2(250,700)),
             new RookPiece(new Vector2(10,250)),
             ];
-        BishopPiece[] Bishops = [new BishopPiece(new Vector2(0,650),600,700)];
+        BishopPiece[] Bishops = [
+            new BishopPiece(new Vector2(50,650),600,650),
+            new BishopPiece(new Vector2(550,600),600,650)
+            ];
         // Player Specific Variables:
         Vector2 positionPlayer;
         float sizePlayer = 50;
