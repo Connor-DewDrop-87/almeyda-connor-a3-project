@@ -12,11 +12,12 @@ namespace MohawkGame2D
     /// </summary>
     public class Game
     {
-        // Enemy Pieces
-        EnemyPiece[] Rooks = [
-            new EnemyPiece(new Vector2(300,700)),
-            new EnemyPiece(new Vector2(10,250)),
+        // Enemy Piece Variables
+        RookPiece[] Rooks = [
+            new RookPiece(new Vector2(250,700)),
+            new RookPiece(new Vector2(10,250)),
             ];
+        BishopPiece[] Bishops = [new BishopPiece(new Vector2(0,650),600,700)];
         // Player Specific Variables:
         Vector2 positionPlayer;
         float sizePlayer = 50;
@@ -54,16 +55,21 @@ namespace MohawkGame2D
             {
                 BoardSummon();
                 // Run game logic
-                PlayerHorizontalMovement();
+                PlayerMovement();
                 
 
                 // Draw Player
                 Draw.FillColor = colorPlayer[0];
                 Draw.Square(positionPlayer, sizePlayer);
-                // Draw Rooks
+                // Draw Enemy Pieces
                 for (int i = 0; i < Rooks.Length; i++)
                 {
-                    Rooks[i].DrawMovement();
+                    Rooks[i].DrawRook();
+                    
+                }
+                for (int i = 0; i < Bishops.Length; i++)
+                {
+                    Bishops[i].DrawBishop();
                 }
                 
 
@@ -90,7 +96,7 @@ namespace MohawkGame2D
         }
         
 
-        void PlayerHorizontalMovement()
+        void PlayerMovement()
         {
             if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Width-2*sizePlayer)
             {
