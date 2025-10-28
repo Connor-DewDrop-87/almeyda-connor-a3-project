@@ -119,17 +119,20 @@ namespace MohawkGame2D
             {
 
             }
-            if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Width - 2 * sizePlayer)
+            if (isAlive == true && gameIsWon == false)
             {
-                positionPlayer += new Vector2(50, -50);
-            }
-            if (Input.IsKeyboardKeyPressed(KeyboardInput.A) && positionPlayer.X >= sizePlayer)
-            {
-                positionPlayer -= new Vector2(50, 50);
-            }
-            if (Input.IsKeyboardKeyPressed(KeyboardInput.W) && positionPlayer.Y >= sizePlayer)
-            {
-                positionPlayer -= new Vector2(0, 50);
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Width - 2 * sizePlayer)
+                {
+                    positionPlayer += new Vector2(50, -50);
+                }
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.A) && positionPlayer.X >= sizePlayer)
+                {
+                    positionPlayer -= new Vector2(50, 50);
+                }
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.W) && positionPlayer.Y >= sizePlayer)
+                {
+                    positionPlayer -= new Vector2(0, 50);
+                }
             }
         }
         
