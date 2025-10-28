@@ -17,7 +17,7 @@ namespace MohawkGame2D;
     }
     public void DrawRook()
         {
-        Draw.FillColor = Color.Blue;
+        Draw.FillColor = Color.White;
         Draw.Square(positionRook, sizeRook);
         if (positionRook.X >= Window.Width - sizeRook)
         {

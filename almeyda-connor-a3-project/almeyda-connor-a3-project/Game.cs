@@ -58,17 +58,10 @@ namespace MohawkGame2D
             if (isAlive==true && gameIsWon==false)
             {
                 BoardSummon();
-                // Run game logic
+                // Player Commands
                 PlayerMovement();
-                
-                // Draw Player
                 Draw.FillColor = colorPlayer[1];
-                // Neck
-                Draw.Rectangle(positionPlayer+new Vector2(15,20), new Vector2(20, 30));
-                // Base
-                Draw.Arc(positionPlayer+new Vector2(25,50), new Vector2(50, 25), 0, -180);
-                // Head
-                Draw.Circle(positionPlayer + new Vector2(25, 10), 15);
+                DrawPlayerModel();
                 // Draw Enemy Pieces
                 for (int i = 0; i < Rooks.Length; i++)
                 {
@@ -86,14 +79,8 @@ namespace MohawkGame2D
             if (gameIsWon==true)
             {
                 BoardSummon();
-                // Draw Player
                 Draw.FillColor = colorPlayer[2];
-                // Neck
-                Draw.Rectangle(positionPlayer + new Vector2(15, 20), new Vector2(20, 30));
-                // Base
-                Draw.Arc(positionPlayer + new Vector2(25, 50), new Vector2(50, 25), 0, -180);
-                // Head
-                Draw.Circle(positionPlayer + new Vector2(25, 10), 15);
+                DrawPlayerModel();
                 Text.Color = Color.Blue;
                 Text.Size = 120;
                 Text.Draw("YOU WIN", 75, 300);
@@ -102,13 +89,31 @@ namespace MohawkGame2D
             if (isAlive ==false && gameIsWon==false)
             {
                 BoardSummon();
+                Draw.FillColor = colorPlayer[1];
+                DrawPlayerModel();
                 Text.Color = Color.Blue;
                 Text.Size = 120;
                 Text.Draw("YOU LOSE", 75, 300);
             }
         }
         
+        void DrawPlayerModel()
+        {
+            
+            // Neck
+            Draw.Rectangle(positionPlayer + new Vector2(15, 20), new Vector2(20, 30));
+            // Base
+            Draw.Arc(positionPlayer + new Vector2(25, 50), new Vector2(50, 25), 0, -180);
+            // Head
+            if (isAlive)
+            {
+                Draw.Circle(positionPlayer + new Vector2(25, 10), 15);
+            }
+            else
+            {
 
+            }
+        }
         void PlayerMovement()
         {
             if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Width-2*sizePlayer)
