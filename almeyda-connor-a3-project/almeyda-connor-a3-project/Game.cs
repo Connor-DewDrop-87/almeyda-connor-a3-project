@@ -37,7 +37,7 @@ namespace MohawkGame2D
         public void Setup()
         {
             Window.SetSize(600, 800);
-            Window.SetTitle("CoolMotionVector");
+            Window.SetTitle("Pawngger");
             // Set up variables once game is ready
             positionPlayer = new(Window.Width/2, Window.Height-sizePlayer);
             Draw.LineSize = 1;
@@ -50,7 +50,15 @@ namespace MohawkGame2D
         {
             Window.ClearBackground(Color.OffWhite);
             Draw.LineColor = Color.Black;
-            CheckIfWon();
+            // Check Game State
+            if (positionPlayer.Y <= 0)
+            {
+                gameIsWon = true;
+            }
+            if (positionPlayer.X >= 550)
+            {
+                isAlive = false;
+            }
             //// Game States
             // Playable State
             if (isAlive==true && gameIsWon==false)
@@ -80,7 +88,7 @@ namespace MohawkGame2D
                 Player();
                 Text.Color = Color.Blue;
                 Text.Size = 120;
-                Text.Draw("YOU WIN", 75, 300);
+                Text.Draw("YOU WIN", new Vector2 (75,300));
             }
             // Lose State
             if (isAlive ==false && gameIsWon==false)
@@ -147,18 +155,6 @@ namespace MohawkGame2D
 
                 }
 
-            }
-        }
-        
-        void CheckIfWon()
-        {
-            if (positionPlayer.Y <= 0)
-            {
-                gameIsWon = true;
-            }
-            if (positionPlayer.X >= 550)
-            {
-                isAlive = false;
             }
         }
     }
