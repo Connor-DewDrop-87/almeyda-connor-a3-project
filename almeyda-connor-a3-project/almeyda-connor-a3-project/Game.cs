@@ -24,7 +24,8 @@ namespace MohawkGame2D
         // Player Specific Variables:
         Vector2 positionPlayer;
         float sizePlayer = 50;
-        Color[] colorPlayer = { Color.White, Color.Yellow};
+        Color[] colorPlayer = { Color.White, Color.Blue, Color.Yellow};
+        // Game State Variables (Determine what is happening in the game right now)
         bool isAlive = true;
         bool gameIsWon = false;
         // Rook Specific Variables
@@ -60,10 +61,14 @@ namespace MohawkGame2D
                 // Run game logic
                 PlayerMovement();
                 
-
                 // Draw Player
-                Draw.FillColor = colorPlayer[0];
-                Draw.Square(positionPlayer, sizePlayer);
+                Draw.FillColor = colorPlayer[1];
+                // Neck
+                Draw.Rectangle(positionPlayer+new Vector2(15,20), new Vector2(20, 30));
+                // Base
+                Draw.Arc(positionPlayer+new Vector2(25,50), new Vector2(50, 25), 0, -180);
+                // Head
+                Draw.Circle(positionPlayer + new Vector2(25, 10), 15);
                 // Draw Enemy Pieces
                 for (int i = 0; i < Rooks.Length; i++)
                 {
@@ -81,9 +86,14 @@ namespace MohawkGame2D
             if (gameIsWon==true)
             {
                 BoardSummon();
-                Draw.FillColor = colorPlayer[1]
-                ;
-                Draw.Square(positionPlayer, sizePlayer);
+                // Draw Player
+                Draw.FillColor = colorPlayer[2];
+                // Neck
+                Draw.Rectangle(positionPlayer + new Vector2(15, 20), new Vector2(20, 30));
+                // Base
+                Draw.Arc(positionPlayer + new Vector2(25, 50), new Vector2(50, 25), 0, -180);
+                // Head
+                Draw.Circle(positionPlayer + new Vector2(25, 10), 15);
                 Text.Color = Color.Blue;
                 Text.Size = 120;
                 Text.Draw("YOU WIN", 75, 300);
