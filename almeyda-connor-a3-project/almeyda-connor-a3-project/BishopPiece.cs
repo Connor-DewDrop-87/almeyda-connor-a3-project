@@ -24,8 +24,15 @@ public class BishopPiece
     }
     public void DrawBishop()
     {
-        Draw.FillColor = Color.Green;
-        Draw.Square(positionBishop, sizeBishop);
+        Draw.FillColor = Color.White;
+        // Neck
+        Draw.Rectangle(positionBishop + new Vector2(15, 20), new Vector2(20, 30));
+        // Head
+        Draw.Triangle(positionBishop+new Vector2 (25,0), positionBishop + new Vector2(12, 20), positionBishop + new Vector2(37, 20));
+        Draw.Arc(positionBishop + new Vector2(25, 15), new Vector2(25, 25), 0, 180);
+        // Base
+        Draw.Arc(positionBishop + new Vector2(25, 50), new Vector2(50, 25), 0, -180);
+        // Movement
         if (positionBishop.X >= Window.Width - sizeBishop)
         {
             velocityBishop = 0;

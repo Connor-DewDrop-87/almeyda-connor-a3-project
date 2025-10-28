@@ -40,9 +40,6 @@ namespace MohawkGame2D
             Window.SetTitle("CoolMotionVector");
             // Set up variables once game is ready
             positionPlayer = new(Window.Width/2, Window.Height-sizePlayer);
-            
-            
-            // 
             Draw.LineSize = 1;
         }
 
@@ -52,6 +49,7 @@ namespace MohawkGame2D
         public void Update()
         {
             Window.ClearBackground(Color.OffWhite);
+            Draw.LineColor = Color.Black;
             CheckIfWon();
             //// Game States
             // Playable State
