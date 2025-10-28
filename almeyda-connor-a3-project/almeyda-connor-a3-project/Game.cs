@@ -59,9 +59,8 @@ namespace MohawkGame2D
             {
                 BoardSummon();
                 // Player Commands
-                PlayerMovement();
                 Draw.FillColor = colorPlayer[1];
-                DrawPlayerModel();
+                Player();
                 // Draw Enemy Pieces
                 for (int i = 0; i < Rooks.Length; i++)
                 {
@@ -80,7 +79,7 @@ namespace MohawkGame2D
             {
                 BoardSummon();
                 Draw.FillColor = colorPlayer[2];
-                DrawPlayerModel();
+                Player();
                 Text.Color = Color.Blue;
                 Text.Size = 120;
                 Text.Draw("YOU WIN", 75, 300);
@@ -90,14 +89,14 @@ namespace MohawkGame2D
             {
                 BoardSummon();
                 Draw.FillColor = colorPlayer[1];
-                DrawPlayerModel();
+                Player();
                 Text.Color = Color.Blue;
                 Text.Size = 120;
                 Text.Draw("YOU LOSE", 75, 300);
             }
         }
         
-        void DrawPlayerModel()
+        void Player()
         {
             
             // Neck
@@ -113,10 +112,7 @@ namespace MohawkGame2D
             {
 
             }
-        }
-        void PlayerMovement()
-        {
-            if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Width-2*sizePlayer)
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Width - 2 * sizePlayer)
             {
                 positionPlayer += new Vector2(50, -50);
             }
@@ -128,8 +124,8 @@ namespace MohawkGame2D
             {
                 positionPlayer -= new Vector2(0, 50);
             }
-            
         }
+        
         void BoardSummon()
         {
             for (int y = 0; y < 16; y++)
