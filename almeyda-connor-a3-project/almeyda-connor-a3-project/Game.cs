@@ -50,6 +50,7 @@ namespace MohawkGame2D
         {
             Window.ClearBackground(Color.OffWhite);
             Draw.LineColor = Color.Black;
+            BoardSummon();
             // Check Game State
             if (positionPlayer.Y <= 0)
             {
@@ -63,7 +64,7 @@ namespace MohawkGame2D
             // Playable State
             if (isAlive==true && gameIsWon==false)
             {
-                BoardSummon();
+                
                 // Player Commands
                 Draw.FillColor = colorPlayer[1];
                 Player();
@@ -83,7 +84,7 @@ namespace MohawkGame2D
             // Win State
             if (gameIsWon==true)
             {
-                BoardSummon();
+               
                 Draw.FillColor = colorPlayer[2];
                 Player();
                 Text.Color = Color.Blue;
@@ -93,7 +94,7 @@ namespace MohawkGame2D
             // Lose State
             if (isAlive ==false && gameIsWon==false)
             {
-                BoardSummon();
+                
                 Draw.FillColor = colorPlayer[1];
                 Player();
                 Text.Color = Color.Blue;
