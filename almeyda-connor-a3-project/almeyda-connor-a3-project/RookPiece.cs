@@ -17,8 +17,23 @@ namespace MohawkGame2D;
     }
     public void DrawRook()
         {
+        
         Draw.FillColor = Color.White;
-        Draw.Square(positionRook, sizeRook);
+        // Head
+        Draw.Quad(positionRook + new Vector2(0, 0),
+            positionRook + new Vector2(50, 0),
+            positionRook + new Vector2(35, 10),
+            positionRook + new Vector2(15, 10));
+        // Base
+        Draw.Quad(positionRook + new Vector2(35, 40),
+            positionRook + new Vector2(15, 40),
+            positionRook + new Vector2(0, 50),
+            positionRook + new Vector2(50, 50));
+        // Neck 
+        for (int i = 0; i < 5; i++)
+        {
+            Draw.Rectangle(positionRook + new Vector2(15+i*5, 10), new Vector2(20-i*5, 30));
+        }
         if (positionRook.X >= Window.Width - sizeRook)
         {
             velocityRook = 0;
