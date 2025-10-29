@@ -64,9 +64,9 @@ namespace MohawkGame2D;
                 new Vector2(rightEdgeRook, rookCentre.Y), new Vector2(rookCentre.X, topEdgeRook)
             );
     }
-    private bool CollisonRook()
+    public bool CollisonRook()
     {
-        
+        return false;
     }
 
 

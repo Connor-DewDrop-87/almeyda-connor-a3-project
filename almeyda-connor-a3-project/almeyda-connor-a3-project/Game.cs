@@ -62,7 +62,7 @@ namespace MohawkGame2D
             {
                 gameIsWon = true;
             }
-            if (positionPlayer.X >= 550)
+            if (wasTouchedByRook)
             {
                 isAlive = false;
             }
@@ -78,7 +78,7 @@ namespace MohawkGame2D
                 for (int i = 0; i < Rooks.Length; i++)
                 {
                     Rooks[i].DrawRook();
-                    
+                    wasTouchedByRook = Rooks[i].CollisonRook();
                 }
                 for (int i = 0; i < Bishops.Length; i++)
                 {
