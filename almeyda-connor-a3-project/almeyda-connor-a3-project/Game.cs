@@ -23,7 +23,7 @@ namespace MohawkGame2D
             ];
         // Player Specific Variables:
         Vector2 positionPlayer;
-        float sizePlayer = 50;
+        float hitboxPlayer;
         Color[] colorPlayer = { Color.White, Color.Blue, Color.Yellow};
         // Game State Variables (Determine what is happening in the game right now)
         bool isAlive = true;
@@ -39,7 +39,7 @@ namespace MohawkGame2D
             Window.SetSize(600, 800);
             Window.SetTitle("Pawngger");
             // Set up variables once game is ready
-            positionPlayer = new(Window.Width/2, Window.Height-sizePlayer);
+            positionPlayer = new(Window.Width/2, Window.Height-50);
             Draw.LineSize = 1;
         }
 
@@ -93,7 +93,7 @@ namespace MohawkGame2D
                 Text.Draw("PRESS SPACE TO RESET", new Vector2(75, 400));
                 if (Input.IsKeyboardKeyPressed(KeyboardInput.Space))
                 {
-                    positionPlayer = new(Window.Width / 2, Window.Height - sizePlayer);
+                    positionPlayer = new(Window.Width / 2, Window.Height - 50);
                     isAlive = true;
                     gameIsWon = false;
                 }
@@ -110,7 +110,7 @@ namespace MohawkGame2D
                 Text.Draw("PRESS SPACE TO RESET", new Vector2(75, 400));
                 if (Input.IsKeyboardKeyPressed(KeyboardInput.Space))
                 {
-                    positionPlayer = new(Window.Width / 2, Window.Height - sizePlayer);
+                    positionPlayer = new(Window.Width / 2, Window.Height - 50);
                     isAlive = true;
                 }
             }
@@ -134,15 +134,15 @@ namespace MohawkGame2D
             }
             if (isAlive == true && gameIsWon == false)
             {
-                if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Width - 2 * sizePlayer)
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Width - 2 * 50)
                 {
                     positionPlayer += new Vector2(50, -50);
                 }
-                if (Input.IsKeyboardKeyPressed(KeyboardInput.A) && positionPlayer.X >= sizePlayer)
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.A) && positionPlayer.X >= 50)
                 {
                     positionPlayer -= new Vector2(50, 50);
                 }
-                if (Input.IsKeyboardKeyPressed(KeyboardInput.W) && positionPlayer.Y >= sizePlayer)
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.W) && positionPlayer.Y >= 50)
                 {
                     positionPlayer -= new Vector2(0, 50);
                 }

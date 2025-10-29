@@ -9,7 +9,7 @@ namespace MohawkGame2D;
     public Vector2 positionRook = new(0, 0);
     public float velocityRook;
     public bool rookTouchLeftSide = true;
-    public float sizeRook = 50;
+    public float hitboxRook;
 
     public RookPiece(Vector2 positionRook)
     {
@@ -34,10 +34,10 @@ namespace MohawkGame2D;
         {
             Draw.Rectangle(positionRook + new Vector2(15+i*5, 10), new Vector2(20-i*5, 30));
         }
-        if (positionRook.X >= Window.Width - sizeRook)
+        if (positionRook.X >= Window.Width - 50)
         {
             velocityRook = 0;
-            positionRook.X = Window.Width - sizeRook;
+            positionRook.X = Window.Width - 50;
             rookTouchLeftSide = false;
         }
         if (positionRook.X <= 0)

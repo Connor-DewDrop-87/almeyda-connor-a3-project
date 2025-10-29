@@ -14,7 +14,7 @@ public class BishopPiece
     public int upOrDown = -1;
     public bool bishopTouchLeftSide = true;
     public bool bishopTouchBottom = true;
-    public float sizeBishop = 50;
+    public float hitboxBishop;
 
     public BishopPiece(Vector2 positionBishop, float minY, float maxY)
     {
@@ -33,10 +33,10 @@ public class BishopPiece
         // Base
         Draw.Arc(positionBishop + new Vector2(25, 50), new Vector2(50, 25), 0, -180);
         // Movement
-        if (positionBishop.X >= Window.Width - sizeBishop)
+        if (positionBishop.X >= Window.Width - 50)
         {
             velocityBishop = 0;
-            positionBishop.X = Window.Width - sizeBishop;
+            positionBishop.X = Window.Width - 50;
             bishopTouchLeftSide = false;
         }
         if (positionBishop.X <= 0)
