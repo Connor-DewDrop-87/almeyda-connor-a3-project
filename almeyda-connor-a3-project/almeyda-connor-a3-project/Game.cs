@@ -84,7 +84,7 @@ namespace MohawkGame2D
             // Win State
             if (gameIsWon==true)
             {
-                
+                positionPlayer = new(Window.Width / 2, 450);
                 Draw.FillColor = colorPlayer[2];
                 Player();
                 Text.Color = Color.Blue;
@@ -94,6 +94,7 @@ namespace MohawkGame2D
                 if (Input.IsKeyboardKeyPressed(KeyboardInput.Space))
                 {
                     positionPlayer = new(Window.Width / 2, Window.Height - sizePlayer);
+                    isAlive = true;
                     gameIsWon = false;
                 }
             }
