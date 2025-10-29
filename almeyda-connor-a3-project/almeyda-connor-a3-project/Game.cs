@@ -84,12 +84,18 @@ namespace MohawkGame2D
             // Win State
             if (gameIsWon==true)
             {
-               
+                
                 Draw.FillColor = colorPlayer[2];
                 Player();
                 Text.Color = Color.Blue;
-                Text.Size = 120;
+                Text.Size = 40;
                 Text.Draw("YOU WIN", new Vector2 (75,300));
+                Text.Draw("PRESS SPACE TO RESET", new Vector2(75, 400));
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.Space))
+                {
+                    positionPlayer = new(Window.Width / 2, Window.Height - sizePlayer);
+                    gameIsWon = false;
+                }
             }
             // Lose State
             if (isAlive ==false && gameIsWon==false)
@@ -97,9 +103,15 @@ namespace MohawkGame2D
                 
                 Draw.FillColor = colorPlayer[1];
                 Player();
-                Text.Color = Color.Blue;
-                Text.Size = 120;
-                Text.Draw("YOU LOSE", 75, 300);
+                Text.Color = Color.White;
+                Text.Size = 40;
+                Text.Draw("YOU LOSE", new Vector2(75, 300));
+                Text.Draw("PRESS SPACE TO RESET", new Vector2(75, 400));
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.Space))
+                {
+                    positionPlayer = new(Window.Width / 2, Window.Height - sizePlayer);
+                    isAlive = true;
+                }
             }
         }
         
