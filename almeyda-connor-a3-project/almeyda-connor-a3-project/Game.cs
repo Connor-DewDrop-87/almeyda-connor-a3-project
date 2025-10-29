@@ -45,7 +45,7 @@ namespace MohawkGame2D
             Window.SetSize(600, 800);
             Window.SetTitle("Pawngger");
             // Set up variables once game is ready
-            
+            positionPlayer = new(Window.Width/2, Window.Height-50);
             Draw.LineSize = 1;
         }
 
@@ -62,7 +62,7 @@ namespace MohawkGame2D
             {
                 gameIsWon = true;
             }
-            if (wasTouchedByRook)
+            if (positionPlayer.X >= 550)
             {
                 isAlive = false;
             }
@@ -70,6 +70,7 @@ namespace MohawkGame2D
             // Playable State
             if (isAlive==true && gameIsWon==false)
             {
+                
                 // Player Commands
                 Draw.FillColor = colorPlayer[1];
                 Player();
@@ -77,7 +78,7 @@ namespace MohawkGame2D
                 for (int i = 0; i < Rooks.Length; i++)
                 {
                     Rooks[i].DrawRook();
-                    bool wasTouchedByRook = Rooks[i].CollisonRook();
+                    
                 }
                 for (int i = 0; i < Bishops.Length; i++)
                 {
@@ -152,7 +153,7 @@ namespace MohawkGame2D
                     positionPlayer -= new Vector2(0, 50);
                 }
             }
-            // Update HitBox Positions
+            // Player Collison Variables 
             Vector2 playerCentre = positionPlayer + new Vector2(25, 25);
             float leftEdgePlayer = playerCentre.X - 20;
             float rightEdgePlayer = playerCentre.X + 20;
@@ -200,23 +201,6 @@ namespace MohawkGame2D
                 }
 
             }
-        }
-        
-        public bool canMove()
-        {
-            if (isAlive==false && gameIsWon==true)
-            {
-                return false;
-            }
-            return true;
-        }
-        public bool gameOver()
-        {
-            if (isAlive == false)
-            {
-                return true;
-            }
-            return false;
         }
         
     }

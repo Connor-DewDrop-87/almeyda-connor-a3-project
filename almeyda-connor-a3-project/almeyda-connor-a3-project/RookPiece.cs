@@ -9,12 +9,6 @@ namespace MohawkGame2D;
     public Vector2 positionRook = new(0, 0);
     public float velocityRook;
     public bool rookTouchLeftSide = true;
-    Vector2 rookCentre = new Vector2(0,0);
-    float leftEdgeRook = 0;
-    float rightEdgeRook = 0;
-    float topEdgeRook = 0;
-    float bottomEdgeRook = 0;
-    
 
     public RookPiece(Vector2 positionRook)
     {
@@ -61,11 +55,6 @@ namespace MohawkGame2D;
             velocityRook += 10;
             positionRook += new Vector2(velocityRook * Time.DeltaTime, 0);
         }
-        
-    }
-    public bool CollisonRook()
-    {
-        // Update HitBox Positions
         Vector2 rookCentre = positionRook + new Vector2(25, 25);
         float leftEdgeRook = rookCentre.X - 20;
         float rightEdgeRook = rookCentre.X + 20;
@@ -74,7 +63,10 @@ namespace MohawkGame2D;
         Draw.Quad(new Vector2(leftEdgeRook, rookCentre.Y), new Vector2(rookCentre.X, bottomEdgeRook),
                 new Vector2(rightEdgeRook, rookCentre.Y), new Vector2(rookCentre.X, topEdgeRook)
             );
-        return false;
+    }
+    private bool CollisonRook()
+    {
+        
     }
 
 
