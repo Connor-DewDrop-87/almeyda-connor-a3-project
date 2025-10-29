@@ -14,7 +14,7 @@ public class BishopPiece
     public int upOrDown = -1;
     public bool bishopTouchLeftSide = true;
     public bool bishopTouchBottom = true;
-    public float hitboxBishop;
+    
 
     public BishopPiece(Vector2 positionBishop, float minY, float maxY)
     {

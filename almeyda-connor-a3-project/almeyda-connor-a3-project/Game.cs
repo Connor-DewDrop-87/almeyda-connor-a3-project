@@ -23,13 +23,13 @@ namespace MohawkGame2D
             ];
         // Player Specific Variables:
         Vector2 positionPlayer;
-        float hitboxPlayer;
+        float hitboxSize = 40;
         Color[] colorPlayer = { Color.White, Color.Blue, Color.Yellow};
         // Game State Variables (Determine what is happening in the game right now)
         bool isAlive = true;
         bool gameIsWon = false;
-        // Rook Specific Variables
         
+
 
         /// <summary>
         ///     Setup runs once before the game loop begins.
@@ -147,6 +147,12 @@ namespace MohawkGame2D
                     positionPlayer -= new Vector2(0, 50);
                 }
             }
+            // Player Collison Variables 
+            Vector2 playerCentre = positionPlayer + new Vector2(25, 25);
+            float leftEdgePlayer = playerCentre.X - 20;
+            float rightEdgePlayer = playerCentre.X + 20;
+            float topEdgePlayer = playerCentre.Y - 20;
+            float bottomEdgePlayer = playerCentre.Y + 20;
         }
         
         void BoardSummon()
@@ -174,6 +180,7 @@ namespace MohawkGame2D
 
             }
         }
+        
     }
 
 }
