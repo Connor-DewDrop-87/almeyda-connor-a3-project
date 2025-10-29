@@ -23,18 +23,19 @@ namespace MohawkGame2D
             ];
         // Player Specific Variables:
         Vector2 positionPlayer = new Vector2(300, 750);
-        float hitboxSize = 40;
-        Color[] colorPlayer = { Color.White, Color.Blue, Color.Yellow};
-        // Game State Variables (Determine what is happening in the game right now)
-        bool isAlive = true;
-        bool gameIsWon = false;
-        bool wasTouchedByRook = false;
+        Color[] colorPlayer = { Color.White, Color.Blue, Color.Yellow };
         // Player Collison Variables 
-        Vector2 playerCentre = new Vector2(325,775);
+        Vector2 playerCentre = new Vector2(325, 775);
         public float leftEdgePlayer = 305;
         public float rightEdgePlayer = 345;
         public float topEdgePlayer = 755;
         public float bottomEdgePlayer = 795;
+
+        // Game State Variables (Determine what is happening in the game right now)
+        bool isAlive = true;
+        bool gameIsWon = false;
+        bool wasTouchedByRook = false;
+        
 
         /// <summary>
         ///     Setup runs once before the game loop begins.
@@ -119,7 +120,7 @@ namespace MohawkGame2D
                 }
             }
         }
-        
+
         void Player()
         {
             
@@ -128,7 +129,7 @@ namespace MohawkGame2D
             // Base
             Draw.Arc(positionPlayer + new Vector2(25, 50), new Vector2(50, 25), 0, -180);
             // Head
-            if (isAlive)
+            if (isAlive==true)
             {
                 Draw.Circle(positionPlayer + new Vector2(25, 10), 15);
             }
@@ -136,7 +137,7 @@ namespace MohawkGame2D
             {
 
             }
-            if (isAlive == true && gameIsWon == false)
+            if (isAlive==true && gameIsWon==false)
             {
                 if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Width - 2 * 50)
                 {
@@ -158,7 +159,23 @@ namespace MohawkGame2D
             float topEdgePlayer = playerCentre.Y - 20;
             float bottomEdgePlayer = playerCentre.Y + 20;
         }
-        
+        public float getLeftEdge()
+        {
+            return leftEdgePlayer;
+        }
+        public float getTopEdge()
+        {
+            return topEdgePlayer;
+        }
+        public float getRightEdge()
+        {
+            return rightEdgePlayer;
+        }
+        public float getBottomEdge()
+        {
+            return bottomEdgePlayer;
+        }
+
         void BoardSummon()
         {
             for (int y = 0; y < 16; y++)
@@ -184,21 +201,22 @@ namespace MohawkGame2D
 
             }
         }
-        public float getLeftEdge()
+        
+        public bool canMove()
         {
-            return leftEdgePlayer;
+            if (isAlive==false && gameIsWon==true)
+            {
+                return false;
+            }
+            return true;
         }
-        public float getTopEdge()
+        public bool gameOver()
         {
-            return topEdgePlayer;
-        }
-        public float getRightEdge()
-        {
-            return rightEdgePlayer;
-        }
-        public float getBottomEdge()
-        {
-            return bottomEdgePlayer;
+            if (isAlive == false)
+            {
+                return true;
+            }
+            return false;
         }
         
     }
