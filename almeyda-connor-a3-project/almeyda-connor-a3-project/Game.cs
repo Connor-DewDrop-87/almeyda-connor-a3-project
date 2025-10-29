@@ -78,7 +78,11 @@ namespace MohawkGame2D
                 for (int i = 0; i < Rooks.Length; i++)
                 {
                     Rooks[i].DrawRook();
-                    wasTouchedByRook = Rooks[i].CollisonRook();
+                    Vector2 RookLeftSide;
+                    //if (Rooks[i].rookHitBox = positionPlayer)
+                    //{
+                    //    wasTouchedByRook = true;
+                    //}
                 }
                 for (int i = 0; i < Bishops.Length; i++)
                 {
