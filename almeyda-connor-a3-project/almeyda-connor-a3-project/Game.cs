@@ -16,6 +16,7 @@ namespace MohawkGame2D
         RookPiece[] Rooks = [
             new RookPiece(new Vector2(250,700)),
             new RookPiece(new Vector2(10,250)),
+           
             ];
         BishopPiece[] Bishops = [
             new BishopPiece(new Vector2(50,650),600,650),
@@ -25,18 +26,12 @@ namespace MohawkGame2D
         Vector2 positionPlayer = new Vector2(300, 750);
         Color[] colorPlayer = { Color.White, Color.Blue, Color.Yellow };
         // Player Collison Variables 
-        Vector2 playerCentre = new Vector2(325, 775);
-        public float leftEdgePlayer = 305;
-        public float rightEdgePlayer = 345;
-        public float topEdgePlayer = 755;
-        public float bottomEdgePlayer = 795;
+        
 
         // Game State Variables (Determine what is happening in the game right now)
         bool isAlive = true;
         bool gameIsWon = false;
         bool wasTouchedByRook = false;
-        
-
         /// <summary>
         ///     Setup runs once before the game loop begins.
         /// </summary>
@@ -62,7 +57,7 @@ namespace MohawkGame2D
             {
                 gameIsWon = true;
             }
-            if (wasTouchedByRook)
+            if (wasTouchedByRook==true)
             {
                 isAlive = false;
             }
@@ -78,11 +73,18 @@ namespace MohawkGame2D
                 for (int i = 0; i < Rooks.Length; i++)
                 {
                     Rooks[i].DrawRook();
-                    Vector2 RookLeftSide;
-                    //if (Rooks[i].rookHitBox = positionPlayer)
-                    //{
-                    //    wasTouchedByRook = true;
-                    //}
+                    float RookX = Rooks[i].rookHitBoxX();
+                    float RookY = Rooks[i].rookHitBoxY();
+                    float RookLeftSide = Rooks[i].rookHitBoxX()+5;
+                    float RookRightSide = Rooks[i].rookHitBoxX()+45;
+                    float RookTopSide = Rooks[i].rookHitBoxY()+5;
+                    float RookBottomSide = Rooks[i].rookHitBoxY()+45;
+                    
+                    if (RookLeftSide <= positionPlayer.X+25 && RookRightSide >= positionPlayer.X + 25 && RookTopSide <= positionPlayer.Y + 25 && RookBottomSide >= positionPlayer.Y + 25)
+                    {
+                        wasTouchedByRook = true;
+                    }
+                    
                 }
                 for (int i = 0; i < Bishops.Length; i++)
                 {
@@ -106,6 +108,7 @@ namespace MohawkGame2D
                     positionPlayer = new(Window.Width / 2, Window.Height - 50);
                     isAlive = true;
                     gameIsWon = false;
+                    wasTouchedByRook = false;
                 }
             }
             // Lose State
@@ -122,6 +125,7 @@ namespace MohawkGame2D
                 {
                     positionPlayer = new(Window.Width / 2, Window.Height - 50);
                     isAlive = true;
+                    wasTouchedByRook = false;
                 }
             }
         }
@@ -142,43 +146,29 @@ namespace MohawkGame2D
             {
 
             }
+            
+            // Player Movement
             if (isAlive==true && gameIsWon==false)
             {
                 if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Width - 2 * 50)
                 {
                     positionPlayer += new Vector2(50, -50);
+                    
                 }
                 if (Input.IsKeyboardKeyPressed(KeyboardInput.A) && positionPlayer.X >= 50)
                 {
                     positionPlayer -= new Vector2(50, 50);
+                    
                 }
                 if (Input.IsKeyboardKeyPressed(KeyboardInput.W) && positionPlayer.Y >= 50)
                 {
                     positionPlayer -= new Vector2(0, 50);
+                    
                 }
+                
             }
-            // Player Collison Variables 
-            Vector2 playerCentre = positionPlayer + new Vector2(25, 25);
-            float leftEdgePlayer = playerCentre.X - 20;
-            float rightEdgePlayer = playerCentre.X + 20;
-            float topEdgePlayer = playerCentre.Y - 20;
-            float bottomEdgePlayer = playerCentre.Y + 20;
-        }
-        public float getLeftEdge()
-        {
-            return leftEdgePlayer;
-        }
-        public float getTopEdge()
-        {
-            return topEdgePlayer;
-        }
-        public float getRightEdge()
-        {
-            return rightEdgePlayer;
-        }
-        public float getBottomEdge()
-        {
-            return bottomEdgePlayer;
+            
+            
         }
 
         void BoardSummon()

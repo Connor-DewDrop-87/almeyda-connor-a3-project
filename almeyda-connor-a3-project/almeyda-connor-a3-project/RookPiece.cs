@@ -57,9 +57,13 @@ namespace MohawkGame2D;
         }
         
     }
-    public Vector2 rookHitBox()
+    public float rookHitBoxX()
     {
-        return positionRook;
+        return positionRook.X;
+    }
+    public float rookHitBoxY()
+    {
+        return positionRook.Y;
     }
 
 
