@@ -31,7 +31,7 @@ namespace MohawkGame2D
         // Game State Variables (Determine what is happening in the game right now)
         bool isAlive = true;
         bool gameIsWon = false;
-        bool wasTouchedByRook = false;
+        bool wasTouchedByEnemy = false;
         /// <summary>
         ///     Setup runs once before the game loop begins.
         /// </summary>
@@ -57,7 +57,7 @@ namespace MohawkGame2D
             {
                 gameIsWon = true;
             }
-            if (wasTouchedByRook==true)
+            if (wasTouchedByEnemy==true)
             {
                 isAlive = false;
             }
@@ -81,13 +81,23 @@ namespace MohawkGame2D
                     // Check if Rook is Colliding with Player
                     if (RookLeftSide <= positionPlayer.X+25 && RookRightSide >= positionPlayer.X + 25 && RookTopSide <= positionPlayer.Y + 25 && RookBottomSide >= positionPlayer.Y + 25)
                     {
-                        wasTouchedByRook = true;
+                        wasTouchedByEnemy = true;
                     }
                     
                 }
                 for (int i = 0; i < Bishops.Length; i++)
                 {
                     Bishops[i].DrawBishop();
+                    // Get Bishop Position
+                    float BishopLeftSide = Bishops[i].bishopHitBoxX() + 5;
+                    float BishopRightSide = Bishops[i].bishopHitBoxX() + 45;
+                    float BishopTopSide = Bishops[i].bishopHitBoxY() + 5;
+                    float BishopBottomSide = Bishops[i].bishopHitBoxY() + 45;
+                    // Check if Rook is Colliding with Player
+                    if (BishopLeftSide <= positionPlayer.X + 25 && BishopRightSide >= positionPlayer.X + 25 && BishopTopSide <= positionPlayer.Y + 25 && BishopBottomSide >= positionPlayer.Y + 25)
+                    {
+                        wasTouchedByEnemy = true;
+                    }
                 }
                 
 
@@ -107,7 +117,7 @@ namespace MohawkGame2D
                     positionPlayer = new(Window.Width / 2, Window.Height - 50);
                     isAlive = true;
                     gameIsWon = false;
-                    wasTouchedByRook = false;
+                    wasTouchedByEnemy = false;
                 }
             }
             // Lose State
@@ -124,7 +134,7 @@ namespace MohawkGame2D
                 {
                     positionPlayer = new(Window.Width / 2, Window.Height - 50);
                     isAlive = true;
-                    wasTouchedByRook = false;
+                    wasTouchedByEnemy = false;
                 }
             }
         }

@@ -3,9 +3,9 @@ using System;
 using System.Numerics;
 
 namespace MohawkGame2D;
-public class BishopPiece
-{
 
+    public class QueenPiece
+    {
     public Vector2 positionBishop = new(0, 0);
     public float velocityBishop;
     public float maxYBishop;
@@ -14,9 +14,9 @@ public class BishopPiece
     public int upOrDown = -1;
     public bool bishopTouchLeftSide = true;
     public bool bishopTouchBottom = true;
-    
 
-    public BishopPiece(Vector2 positionBishop, float minY, float maxY)
+
+    public QueenPiece(Vector2 positionBishop, float minY, float maxY)
     {
         this.positionBishop = positionBishop;
         this.minYBishop = minY;
@@ -28,7 +28,7 @@ public class BishopPiece
         // Neck
         Draw.Rectangle(positionBishop + new Vector2(15, 20), new Vector2(20, 30));
         // Head
-        Draw.Triangle(positionBishop+new Vector2 (25,0), positionBishop + new Vector2(12, 20), positionBishop + new Vector2(37, 20));
+        Draw.Triangle(positionBishop + new Vector2(25, 0), positionBishop + new Vector2(12, 20), positionBishop + new Vector2(37, 20));
         Draw.Arc(positionBishop + new Vector2(25, 15), new Vector2(25, 25), 0, 180);
         // Base
         Draw.Arc(positionBishop + new Vector2(25, 50), new Vector2(50, 25), 0, -180);
@@ -79,4 +79,6 @@ public class BishopPiece
     {
         return positionBishop.Y;
     }
+
 }
+
