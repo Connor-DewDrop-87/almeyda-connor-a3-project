@@ -73,13 +73,12 @@ namespace MohawkGame2D
                 for (int i = 0; i < Rooks.Length; i++)
                 {
                     Rooks[i].DrawRook();
-                    float RookX = Rooks[i].rookHitBoxX();
-                    float RookY = Rooks[i].rookHitBoxY();
+                    // Get Rook Position
                     float RookLeftSide = Rooks[i].rookHitBoxX()+5;
                     float RookRightSide = Rooks[i].rookHitBoxX()+45;
                     float RookTopSide = Rooks[i].rookHitBoxY()+5;
                     float RookBottomSide = Rooks[i].rookHitBoxY()+45;
-                    
+                    // Check if Rook is Colliding with Player
                     if (RookLeftSide <= positionPlayer.X+25 && RookRightSide >= positionPlayer.X + 25 && RookTopSide <= positionPlayer.Y + 25 && RookBottomSide >= positionPlayer.Y + 25)
                     {
                         wasTouchedByRook = true;

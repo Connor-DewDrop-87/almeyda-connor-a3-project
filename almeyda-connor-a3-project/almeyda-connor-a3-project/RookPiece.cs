@@ -57,6 +57,7 @@ namespace MohawkGame2D;
         }
         
     }
+    // Get the positions for Collison Detection
     public float rookHitBoxX()
     {
         return positionRook.X;
