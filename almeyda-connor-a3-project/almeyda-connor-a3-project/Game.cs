@@ -22,6 +22,10 @@ namespace MohawkGame2D
             new BishopPiece(new Vector2(50,650),600,650),
             new BishopPiece(new Vector2(550,600),600,650)
             ];
+        QueenPiece[] Queens = [
+            new QueenPiece(new Vector2(50,150),100,200),
+            
+            ];
         // Player Specific Variables:
         Vector2 positionPlayer = new Vector2(300, 750);
         Color[] colorPlayer = { Color.White, Color.Blue, Color.Yellow };
@@ -95,6 +99,19 @@ namespace MohawkGame2D
                     float BishopBottomSide = Bishops[i].bishopHitBoxY() + 45;
                     // Check if Rook is Colliding with Player
                     if (BishopLeftSide <= positionPlayer.X + 25 && BishopRightSide >= positionPlayer.X + 25 && BishopTopSide <= positionPlayer.Y + 25 && BishopBottomSide >= positionPlayer.Y + 25)
+                    {
+                        wasTouchedByEnemy = true;
+                    }
+                }
+                for (int i=0; i<Queens.Length; i++)
+                {
+                    Queens[i].DrawQueen();
+                    // Get Queen Position
+                    float QueenLeftSide = Queens[i].queenHitBoxX() + 5;
+                    float QueenRightSide = Queens[i].queenHitBoxX() + 45;
+                    float QueenTopSide = Queens[i].queenHitBoxY() + 5;
+                    float QueenBottomSide = Queens[i].queenHitBoxY() + 45;
+                    if (QueenLeftSide <= positionPlayer.X + 25 && QueenRightSide >= positionPlayer.X+25 && QueenTopSide <= positionPlayer.Y+25 && QueenBottomSide >= positionPlayer.Y+25)
                     {
                         wasTouchedByEnemy = true;
                     }

@@ -6,78 +6,84 @@ namespace MohawkGame2D;
 
     public class QueenPiece
     {
-    public Vector2 positionBishop = new(0, 0);
-    public float velocityBishop;
-    public float maxYBishop;
-    public float minYBishop;
+    public Vector2 positionQueen = new(0, 0);
+    public float velocityQueen;
+    public float maxYQueen;
+    public float minYQueen;
     // Determines whether or not vector is going up or down (Negative means up, Positive means down)
     public int upOrDown = -1;
-    public bool bishopTouchLeftSide = true;
-    public bool bishopTouchBottom = true;
+    public bool QueenTouchLeftSide = true;
+    public bool QueenTouchBottom = true;
 
 
     public QueenPiece(Vector2 positionBishop, float minY, float maxY)
     {
-        this.positionBishop = positionBishop;
-        this.minYBishop = minY;
-        this.maxYBishop = maxY;
+        this.positionQueen = positionBishop;
+        this.minYQueen = minY;
+        this.maxYQueen = maxY;
     }
-    public void DrawBishop()
+    public void DrawQueen()
     {
         Draw.FillColor = Color.White;
         // Neck
-        Draw.Rectangle(positionBishop + new Vector2(15, 20), new Vector2(20, 30));
+        Draw.Rectangle(positionQueen + new Vector2(15, 15), new Vector2(20, 35));
         // Head
-        Draw.Triangle(positionBishop + new Vector2(25, 0), positionBishop + new Vector2(12, 20), positionBishop + new Vector2(37, 20));
-        Draw.Arc(positionBishop + new Vector2(25, 15), new Vector2(25, 25), 0, 180);
+        Draw.Triangle(positionQueen + new Vector2(5, 10), positionQueen + new Vector2(45, 10), positionQueen + new Vector2(25, 20));
+        // Crown 
+        Draw.Circle(positionQueen + new Vector2(25,5), 10);
+        for (int i = 0; i < 5; i++)
+        {
+            Draw.Circle(positionQueen + new Vector2(15 + i * 5, 10), 2.5f);
+        }
+        
         // Base
-        Draw.Arc(positionBishop + new Vector2(25, 50), new Vector2(50, 25), 0, -180);
+        Draw.Arc(positionQueen + new Vector2(25, 50), new Vector2(50, 25), 0, -180);
         // Movement
-        if (positionBishop.X >= Window.Width - 50)
+        if (positionQueen.X >= Window.Width - 50)
         {
-            velocityBishop = 0;
-            positionBishop.X = Window.Width - 50;
-            bishopTouchLeftSide = false;
+            velocityQueen = 0;
+            positionQueen.X = Window.Width - 50;
+            QueenTouchLeftSide = false;
         }
-        if (positionBishop.X <= 0)
+        if (positionQueen.X <= 0)
         {
-            velocityBishop = 0;
-            positionBishop.X = 0;
-            bishopTouchLeftSide = true;
+            velocityQueen = 0;
+            positionQueen.X = 0;
+            QueenTouchLeftSide = true;
         }
-        if (positionBishop.Y > maxYBishop)
+        if (positionQueen.Y > maxYQueen)
         {
-            velocityBishop = 0;
-            positionBishop.Y = maxYBishop;
+            velocityQueen = 0;
+            positionQueen.Y = maxYQueen;
             upOrDown *= -1;
-            bishopTouchBottom = false;
+            QueenTouchBottom = false;
         }
-        if (positionBishop.Y < minYBishop)
+        if (positionQueen.Y < minYQueen)
         {
-            velocityBishop = 0;
-            positionBishop.Y = minYBishop;
+            velocityQueen = 0;
+            positionQueen.Y = minYQueen;
             upOrDown *= -1;
-            bishopTouchBottom = true;
+            QueenTouchBottom = true;
         }
-        if (bishopTouchLeftSide)
+        if (QueenTouchLeftSide)
         {
-            velocityBishop += 25;
-            positionBishop += new Vector2(velocityBishop * Time.DeltaTime, velocityBishop * Time.DeltaTime * upOrDown);
+            velocityQueen += 25;
+            positionQueen += new Vector2(velocityQueen * Time.DeltaTime, velocityQueen * Time.DeltaTime * upOrDown);
         }
-        if (!bishopTouchLeftSide)
+        if (!QueenTouchLeftSide)
         {
-            velocityBishop += 25;
-            positionBishop -= new Vector2(velocityBishop * Time.DeltaTime, velocityBishop * Time.DeltaTime * upOrDown);
+            velocityQueen += 25;
+            positionQueen -= new Vector2(velocityQueen * Time.DeltaTime, velocityQueen * Time.DeltaTime * upOrDown);
         }
     }
     // Get the positions for Collison Detection
-    public float bishopHitBoxX()
+    public float queenHitBoxX()
     {
-        return positionBishop.X;
+        return positionQueen.X;
     }
-    public float bishopHitBoxY()
+    public float queenHitBoxY()
     {
-        return positionBishop.Y;
+        return positionQueen.Y;
     }
 
 }

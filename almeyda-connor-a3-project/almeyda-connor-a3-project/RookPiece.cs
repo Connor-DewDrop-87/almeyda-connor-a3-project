@@ -28,11 +28,12 @@ namespace MohawkGame2D;
             positionRook + new Vector2(15, 40),
             positionRook + new Vector2(0, 50),
             positionRook + new Vector2(50, 50));
-        // Movement
+        // Neck
         for (int i = 0; i < 5; i++)
         {
             Draw.Rectangle(positionRook + new Vector2(15+i*5, 10), new Vector2(20-i*5, 30));
         }
+        // Movement
         if (positionRook.X >= Window.Width - 50)
         {
             velocityRook = 0;
