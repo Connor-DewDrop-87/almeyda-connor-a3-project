@@ -14,16 +14,16 @@ namespace MohawkGame2D
     {
         // Enemy Piece Variables
         RookPiece[] Rooks = [
-            new RookPiece(new Vector2(250,700)),
+            new RookPiece(new Vector2(0,700)),
             new RookPiece(new Vector2(10,250)),
-           
+            new RookPiece(new Vector2(750,700)),
             ];
         BishopPiece[] Bishops = [
             new BishopPiece(new Vector2(50,650),600,650),
             new BishopPiece(new Vector2(550,600),600,650)
             ];
         QueenPiece[] Queens = [
-            new QueenPiece(new Vector2(0,150),50,150),
+            new QueenPiece(new Vector2(0,150),50,200),
             
             ];
         // Player Specific Variables:
@@ -78,10 +78,10 @@ namespace MohawkGame2D
                 {
                     Rooks[i].DrawRook();
                     // Get Rook Position
-                    float RookLeftSide = Rooks[i].rookHitBoxX()+5;
-                    float RookRightSide = Rooks[i].rookHitBoxX()+45;
-                    float RookTopSide = Rooks[i].rookHitBoxY()+5;
-                    float RookBottomSide = Rooks[i].rookHitBoxY()+45;
+                    float RookLeftSide = Rooks[i].rookHitBoxX();
+                    float RookRightSide = Rooks[i].rookHitBoxX()+50;
+                    float RookTopSide = Rooks[i].rookHitBoxY();
+                    float RookBottomSide = Rooks[i].rookHitBoxY()+50;
                     // Check if Rook is Colliding with Player
                     if (RookLeftSide <= positionPlayer.X+25 && RookRightSide >= positionPlayer.X + 25 && RookTopSide <= positionPlayer.Y + 25 && RookBottomSide >= positionPlayer.Y + 25)
                     {
@@ -93,10 +93,10 @@ namespace MohawkGame2D
                 {
                     Bishops[i].DrawBishop();
                     // Get Bishop Position
-                    float BishopLeftSide = Bishops[i].bishopHitBoxX() + 5;
-                    float BishopRightSide = Bishops[i].bishopHitBoxX() + 45;
-                    float BishopTopSide = Bishops[i].bishopHitBoxY() + 5;
-                    float BishopBottomSide = Bishops[i].bishopHitBoxY() + 45;
+                    float BishopLeftSide = Bishops[i].bishopHitBoxX();
+                    float BishopRightSide = Bishops[i].bishopHitBoxX() + 50;
+                    float BishopTopSide = Bishops[i].bishopHitBoxY();
+                    float BishopBottomSide = Bishops[i].bishopHitBoxY() + 50;
                     // Check if Rook is Colliding with Player
                     if (BishopLeftSide <= positionPlayer.X + 25 && BishopRightSide >= positionPlayer.X + 25 && BishopTopSide <= positionPlayer.Y + 25 && BishopBottomSide >= positionPlayer.Y + 25)
                     {
@@ -107,10 +107,10 @@ namespace MohawkGame2D
                 {
                     Queens[i].DrawQueen();
                     // Get Queen Position
-                    float QueenLeftSide = Queens[i].queenHitBoxX() + 5;
-                    float QueenRightSide = Queens[i].queenHitBoxX() + 45;
-                    float QueenTopSide = Queens[i].queenHitBoxY() + 5;
-                    float QueenBottomSide = Queens[i].queenHitBoxY() + 45;
+                    float QueenLeftSide = Queens[i].queenHitBoxX();
+                    float QueenRightSide = Queens[i].queenHitBoxX() + 50;
+                    float QueenTopSide = Queens[i].queenHitBoxY();
+                    float QueenBottomSide = Queens[i].queenHitBoxY() + 50;
                     if (QueenLeftSide <= positionPlayer.X + 25 && QueenRightSide >= positionPlayer.X+25 && QueenTopSide <= positionPlayer.Y+25 && QueenBottomSide >= positionPlayer.Y+25)
                     {
                         wasTouchedByEnemy = true;

@@ -35,26 +35,26 @@ public class BishopPiece
         // Movement
         if (positionBishop.X >= Window.Width - 50)
         {
-            velocityBishop = 0;
+            velocityBishop = 25;
             positionBishop.X = Window.Width - 50;
             bishopTouchLeftSide = false;
         }
         if (positionBishop.X <= 0)
         {
-            velocityBishop = 0;
+            velocityBishop = 25;
             positionBishop.X = 0;
             bishopTouchLeftSide = true;
         }
         if (positionBishop.Y > maxYBishop)
         {
-            velocityBishop = 0;
+            velocityBishop = 25;
             positionBishop.Y = maxYBishop;
             upOrDown *= -1;
             bishopTouchBottom = false;
         }
         if (positionBishop.Y < minYBishop)
         {
-            velocityBishop = 0;
+            velocityBishop = 25;
             positionBishop.Y = minYBishop;
             upOrDown *= -1;
             bishopTouchBottom = true;
