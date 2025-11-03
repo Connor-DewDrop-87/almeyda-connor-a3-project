@@ -12,8 +12,9 @@ namespace MohawkGame2D;
     public float minYQueen;
     // Determines whether or not vector is going up or down (Negative means up, Positive means down)
     public int upOrDown = -1;
-    public bool QueenTouchLeftSide = true;
+    public bool QueenDoneWithLeftSide = true;
     public bool QueenTouchBottom = true;
+    public bool QueenStillScooting = false;
 
 
     public QueenPiece(Vector2 positionBishop, float minY, float maxY)
@@ -43,13 +44,29 @@ namespace MohawkGame2D;
         {
             velocityQueen = 0;
             positionQueen.X = Window.Width - 50;
-            QueenTouchLeftSide = false;
+            QueenDoneWithLeftSide = false;
+            if (positionQueen.Y < maxYQueen && positionQueen.Y > minYQueen)
+            {
+                QueenStillScooting = true;
+            }
+            else
+            {
+                QueenStillScooting = false;
+            }
         }
         if (positionQueen.X <= 0)
         {
             velocityQueen = 0;
             positionQueen.X = 0;
-            QueenTouchLeftSide = true;
+            QueenDoneWithLeftSide = true;
+            if (positionQueen.Y < maxYQueen && positionQueen.Y > minYQueen)
+            {
+                QueenStillScooting = true;
+            }
+            else
+            {
+                QueenStillScooting = false;
+            }
         }
         if (positionQueen.Y > maxYQueen)
         {
@@ -65,15 +82,19 @@ namespace MohawkGame2D;
             upOrDown *= -1;
             QueenTouchBottom = true;
         }
-        if (QueenTouchLeftSide)
+        if (QueenStillScooting)
         {
-            velocityQueen += 25;
-            positionQueen += new Vector2(velocityQueen * Time.DeltaTime, velocityQueen * Time.DeltaTime * upOrDown);
+            positionQueen -= new Vector2(0, 75 * Time.DeltaTime * upOrDown);
         }
-        if (!QueenTouchLeftSide)
+        if (QueenDoneWithLeftSide && !QueenStillScooting)
         {
-            velocityQueen += 25;
-            positionQueen -= new Vector2(velocityQueen * Time.DeltaTime, velocityQueen * Time.DeltaTime * upOrDown);
+                velocityQueen += 25;
+                positionQueen += new Vector2(velocityQueen * Time.DeltaTime, velocityQueen * Time.DeltaTime * upOrDown);  
+        }
+        if (!QueenDoneWithLeftSide && !QueenStillScooting)
+        {
+                velocityQueen += 25;
+                positionQueen -= new Vector2(velocityQueen * Time.DeltaTime, velocityQueen * Time.DeltaTime * upOrDown);
         }
     }
     // Get the positions for Collison Detection

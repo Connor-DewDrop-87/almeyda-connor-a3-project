@@ -23,7 +23,7 @@ namespace MohawkGame2D
             new BishopPiece(new Vector2(550,600),600,650)
             ];
         QueenPiece[] Queens = [
-            new QueenPiece(new Vector2(50,150),100,200),
+            new QueenPiece(new Vector2(0,150),50,150),
             
             ];
         // Player Specific Variables:
