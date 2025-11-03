@@ -226,11 +226,11 @@ namespace MohawkGame2D
             {
                 positionPlayer -= new Vector2(0, 50);
             }
-            if (Input.IsKeyboardKeyPressed(KeyboardInput.S) && positionPlayer.Y <= Window.Height-50)
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.S) && positionPlayer.Y <= Window.Height-100)
             {
                 positionPlayer += new Vector2(0, 50);
             }
-            if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Height - 50)
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Width - 100)
             {
                 positionPlayer += new Vector2(50, 0);
             }
