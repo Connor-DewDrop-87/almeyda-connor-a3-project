@@ -26,6 +26,8 @@ namespace MohawkGame2D
             new RookPiece(new Vector2(300,250), false),
             new RookPiece(new Vector2(550,100), false),
             new RookPiece(new Vector2(0,100), true),
+            new RookPiece(new Vector2(500,50), false),
+            new RookPiece(new Vector2(50,50), true),
             new RookPiece(new Vector2(250,50), false),
             new RookPiece(new Vector2(300,50), true),
             ];
@@ -51,6 +53,7 @@ namespace MohawkGame2D
         bool isAlive = true;
         bool gameIsWon = false;
         bool wasTouchedByEnemy = false;
+        bool centerPlayer = true;
         /// <summary>
         ///     Setup runs once before the game loop begins.
         /// </summary>
@@ -82,7 +85,7 @@ namespace MohawkGame2D
             }
             //// Game States
             // Playable State
-            if (isAlive==true && gameIsWon==false)
+            if (gameIsWon==false)
             {
                 
                 // Player Commands
@@ -122,7 +125,7 @@ namespace MohawkGame2D
                 {
                     Queens[i].DrawQueen();
                     // Get Queen Position
-                    float QueenLeftSide = Queens[i].queenHitBoxX()+50;
+                    float QueenLeftSide = Queens[i].queenHitBoxX()-50;
                     float QueenRightSide = Queens[i].queenHitBoxX() + 50;
                     float QueenTopSide = Queens[i].queenHitBoxY();
                     float QueenBottomSide = Queens[i].queenHitBoxY() + 50;
@@ -131,44 +134,45 @@ namespace MohawkGame2D
                         wasTouchedByEnemy = true;
                     }
                 }
-                
+                // Check if the player has lost
+                if (isAlive == false && gameIsWon == false)
+                {
+                    Draw.FillColor = colorPlayer[1];
+                    Player();
+                    Text.Color = Color.Cyan;
+                    Text.Size = 40;
+                    Text.Draw("YOU LOSE", new Vector2(75, 300));
+                    Text.Draw("PRESS ENTER TO RESET", new Vector2(75, 350));
+                    // Reset game using Enter
+                    if (Input.IsKeyboardKeyPressed(KeyboardInput.Enter))
+                    {
+                        ResetGame();
+                    }
+                }
+
 
             }
             // Win State
             if (gameIsWon==true)
             {
-                positionPlayer = new(Window.Width / 2, 450);
+                if (centerPlayer)
+                {
+                    positionPlayer = new(Window.Width / 2, 450);
+                    centerPlayer = false;
+                }
                 Draw.FillColor = colorPlayer[2];
-                Player();
-                Text.Color = Color.Blue;
+                PlayerQueen();
+                Text.Color = Color.Cyan;
                 Text.Size = 40;
                 Text.Draw("YOU WIN", new Vector2 (75,300));
-                Text.Draw("PRESS SPACE TO RESET", new Vector2(75, 400));
-                if (Input.IsKeyboardKeyPressed(KeyboardInput.Space))
+                Text.Draw("PRESS ENTER TO RESET", new Vector2(75, 350));
+                // Reset game using Enter
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.Enter))
                 {
-                    positionPlayer = new(Window.Width / 2, Window.Height - 50);
-                    isAlive = true;
-                    gameIsWon = false;
-                    wasTouchedByEnemy = false;
+                    ResetGame();
                 }
             }
-            // Lose State
-            if (isAlive ==false && gameIsWon==false)
-            {
-                
-                Draw.FillColor = colorPlayer[1];
-                Player();
-                Text.Color = Color.White;
-                Text.Size = 40;
-                Text.Draw("YOU LOSE", new Vector2(75, 300));
-                Text.Draw("PRESS SPACE TO RESET", new Vector2(75, 400));
-                if (Input.IsKeyboardKeyPressed(KeyboardInput.Space))
-                {
-                    positionPlayer = new(Window.Width / 2, Window.Height - 50);
-                    isAlive = true;
-                    wasTouchedByEnemy = false;
-                }
-            }
+            
         }
 
         void Player()
@@ -201,6 +205,40 @@ namespace MohawkGame2D
             
             
         }
+        void PlayerQueen()
+        {
+            Draw.FillColor = Color.Blue;
+            // Neck
+            Draw.Rectangle(positionPlayer + new Vector2(15, 15), new Vector2(20, 35));
+            // Head
+            Draw.Triangle(positionPlayer + new Vector2(5, 10), positionPlayer + new Vector2(45, 10), positionPlayer + new Vector2(25, 20));
+            // Crown 
+            Draw.Circle(positionPlayer + new Vector2(25, 5), 10);
+            for (int i = 0; i < 5; i++)
+            {
+                Draw.Circle(positionPlayer + new Vector2(15 + i * 5, 10), 2.5f);
+            }
+
+            // Base
+            Draw.Arc(positionPlayer + new Vector2(25, 50), new Vector2(50, 25), 0, -180);
+            // Movement
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.W) && positionPlayer.Y >= 50)
+            {
+                positionPlayer -= new Vector2(0, 50);
+            }
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.S) && positionPlayer.Y <= Window.Height-50)
+            {
+                positionPlayer += new Vector2(0, 50);
+            }
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Height - 50)
+            {
+                positionPlayer += new Vector2(50, 0);
+            }
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.A) && positionPlayer.X >= 50)
+            {
+                positionPlayer -= new Vector2(50, 0);
+            }
+        }
 
         void BoardSummon()
         {
@@ -226,6 +264,45 @@ namespace MohawkGame2D
                 }
 
             }
+        }
+        void ResetGame()
+        {
+            positionPlayer = new(Window.Width / 2, Window.Height - 50);
+            isAlive = true;
+            gameIsWon = false;
+            wasTouchedByEnemy = false;
+            centerPlayer = true;
+            // Enemy Piece Starting Positions
+            RookPiece[] Rooks = [
+                new RookPiece(new Vector2(0,700),true),
+            new RookPiece(new Vector2(550,700),true),
+            new RookPiece(new Vector2(50,500),true),
+            new RookPiece(new Vector2(500,450), false),
+            new RookPiece(new Vector2(50,350), true),
+            new RookPiece(new Vector2(550,350), false),
+            new RookPiece(new Vector2(250,350), true),
+            new RookPiece(new Vector2(0,250), true),
+            new RookPiece(new Vector2(550,250), false),
+            new RookPiece(new Vector2(300,250), false),
+            new RookPiece(new Vector2(550,100), false),
+            new RookPiece(new Vector2(0,100), true),
+            new RookPiece(new Vector2(500,50), false),
+            new RookPiece(new Vector2(50,50), true),
+            new RookPiece(new Vector2(250,50), false),
+            new RookPiece(new Vector2(300,50), true),
+            ];
+            BishopPiece[] Bishops = [
+                new BishopPiece(new Vector2(50,650),600,650, true),
+            new BishopPiece(new Vector2(550,600),600,650, false),
+            new BishopPiece(new Vector2(550,500),450,500, true),
+            new BishopPiece(new Vector2(50,500),450,500, false),
+            ];
+            QueenPiece[] Queens = [
+                new QueenPiece(new Vector2(0,350),250,350),
+            new QueenPiece(new Vector2(100,150),50,150),
+            new QueenPiece(new Vector2(550,50),50,150),
+
+            ];
         }
         
     }
