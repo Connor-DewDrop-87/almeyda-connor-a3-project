@@ -10,9 +10,10 @@ namespace MohawkGame2D;
     public float velocityRook;
     public bool rookTouchLeftSide = true;
 
-    public RookPiece(Vector2 positionRook)
+    public RookPiece(Vector2 positionRook, bool rookTouchLeftSide)
     {
         this.positionRook = positionRook;
+        this.rookTouchLeftSide = rookTouchLeftSide;
     }
     public void DrawRook()
         {
@@ -48,12 +49,12 @@ namespace MohawkGame2D;
         }
         if (!rookTouchLeftSide)
         {
-            velocityRook += 10;
+            velocityRook += 5;
             positionRook -= new Vector2(velocityRook * Time.DeltaTime, 0);
         }
         if (rookTouchLeftSide)
         {
-            velocityRook += 10;
+            velocityRook += 5;
             positionRook += new Vector2(velocityRook * Time.DeltaTime, 0);
         }
         

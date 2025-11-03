@@ -12,18 +12,33 @@ namespace MohawkGame2D
     /// </summary>
     public class Game
     {
-        // Enemy Piece Variables
+        // Enemy Piece Starting Positions
         RookPiece[] Rooks = [
-            new RookPiece(new Vector2(0,700)),
-            new RookPiece(new Vector2(10,250)),
-            new RookPiece(new Vector2(750,700)),
+            new RookPiece(new Vector2(0,700),true),
+            new RookPiece(new Vector2(550,700),true),
+            new RookPiece(new Vector2(50,500),true),
+            new RookPiece(new Vector2(500,450), false),
+            new RookPiece(new Vector2(50,350), true),
+            new RookPiece(new Vector2(550,350), false),
+            new RookPiece(new Vector2(250,350), true),
+            new RookPiece(new Vector2(0,250), true),
+            new RookPiece(new Vector2(550,250), false),
+            new RookPiece(new Vector2(300,250), false),
+            new RookPiece(new Vector2(550,100), false),
+            new RookPiece(new Vector2(0,100), true),
+            new RookPiece(new Vector2(250,50), false),
+            new RookPiece(new Vector2(300,50), true),
             ];
         BishopPiece[] Bishops = [
-            new BishopPiece(new Vector2(50,650),600,650),
-            new BishopPiece(new Vector2(550,600),600,650)
+            new BishopPiece(new Vector2(50,650),600,650, true),
+            new BishopPiece(new Vector2(550,600),600,650, false),
+            new BishopPiece(new Vector2(550,500),450,500, true),
+            new BishopPiece(new Vector2(50,500),450,500, false),
             ];
         QueenPiece[] Queens = [
-            new QueenPiece(new Vector2(0,150),50,200),
+            new QueenPiece(new Vector2(0,350),250,350),
+            new QueenPiece(new Vector2(100,150),50,150),
+            new QueenPiece(new Vector2(550,50),50,150),
             
             ];
         // Player Specific Variables:
@@ -107,7 +122,7 @@ namespace MohawkGame2D
                 {
                     Queens[i].DrawQueen();
                     // Get Queen Position
-                    float QueenLeftSide = Queens[i].queenHitBoxX();
+                    float QueenLeftSide = Queens[i].queenHitBoxX()+50;
                     float QueenRightSide = Queens[i].queenHitBoxX() + 50;
                     float QueenTopSide = Queens[i].queenHitBoxY();
                     float QueenBottomSide = Queens[i].queenHitBoxY() + 50;
@@ -176,17 +191,7 @@ namespace MohawkGame2D
             // Player Movement
             if (isAlive==true && gameIsWon==false)
             {
-                if (Input.IsKeyboardKeyPressed(KeyboardInput.D) && positionPlayer.X <= Window.Width - 2 * 50)
-                {
-                    positionPlayer += new Vector2(50, -50);
-                    
-                }
-                if (Input.IsKeyboardKeyPressed(KeyboardInput.A) && positionPlayer.X >= 50)
-                {
-                    positionPlayer -= new Vector2(50, 50);
-                    
-                }
-                if (Input.IsKeyboardKeyPressed(KeyboardInput.W) && positionPlayer.Y >= 50)
+                if (Input.IsKeyboardKeyPressed(KeyboardInput.Space) && positionPlayer.Y >= 50)
                 {
                     positionPlayer -= new Vector2(0, 50);
                     

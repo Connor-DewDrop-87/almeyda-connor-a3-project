@@ -16,11 +16,12 @@ public class BishopPiece
     public bool bishopTouchBottom = true;
     
 
-    public BishopPiece(Vector2 positionBishop, float minY, float maxY)
+    public BishopPiece(Vector2 positionBishop, float minY, float maxY, bool bishopTouchLeftSide)
     {
         this.positionBishop = positionBishop;
         this.minYBishop = minY;
         this.maxYBishop = maxY;
+        this.bishopTouchLeftSide = bishopTouchLeftSide;
     }
     public void DrawBishop()
     {

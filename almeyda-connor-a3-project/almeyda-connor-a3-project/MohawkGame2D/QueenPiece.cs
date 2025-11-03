@@ -84,16 +84,16 @@ namespace MohawkGame2D;
         }
         if (QueenStillScooting)
         {
-            positionQueen -= new Vector2(0, 75 * Time.DeltaTime * upOrDown);
+            positionQueen -= new Vector2(0, 100 * Time.DeltaTime * upOrDown);
         }
         if (QueenDoneWithLeftSide && !QueenStillScooting)
         {
-                velocityQueen += 25;
+                velocityQueen += 50;
                 positionQueen += new Vector2(velocityQueen * Time.DeltaTime, velocityQueen * Time.DeltaTime * upOrDown);  
         }
         if (!QueenDoneWithLeftSide && !QueenStillScooting)
         {
-                velocityQueen += 25;
+                velocityQueen += 50;
                 positionQueen -= new Vector2(velocityQueen * Time.DeltaTime, velocityQueen * Time.DeltaTime * upOrDown);
         }
     }
